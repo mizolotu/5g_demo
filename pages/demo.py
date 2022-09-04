@@ -1,6 +1,7 @@
 import os.path as osp
 import numpy as np
 import dash_bootstrap_components as dbc
+import pandas as pd
 import plotly.express as px
 import tensorflow as tf
 import plotly.graph_objects as go
@@ -102,7 +103,6 @@ layout = html.Div(className='full black', children=[
                 className='padded',
                 id='input',
                 figure={},
-                #style={'height': '50vh', 'width': '50vh'}
             )
 
         ]),
@@ -114,7 +114,16 @@ layout = html.Div(className='full black', children=[
                 className='padded',
                 id='perturbation',
                 figure={},
-                #style={'height': '50vh', 'width': '50vh'}
+            )
+        ]),
+
+        dbc.Col(align='center', width={"size": 4}, children=[
+
+            html.Div("Beam direction", style={'text-align': 'center'}),
+            dcc.Graph(
+                className='padded',
+                id='output',
+                figure={},
             )
         ])
 
@@ -130,6 +139,7 @@ layout = html.Div(className='full black', children=[
     Output("throughput", "figure"),
     Output("input", "figure"),
     Output("perturbation", "figure"),
+    Output("output", "figure"),
     Input("interval", "n_intervals"),
     State("select_attack", "value"),
     State("select_eps", "value"),
@@ -198,8 +208,20 @@ def update(n_intervals, attack, eps):
     fig_t = px.bar(thr_vals, color=thr_vals, color_continuous_scale='RdBu')
     fig_t.add_trace(go.Scatter(y=mean_thr_vals, mode='lines+markers'))
     #fig_t.add_trace(px.bar(thr_vals))
-    fig_t.update_layout(template='none')
+    fig_t.update_layout(template='none', showlegend=False)
     fig_t.update_layout(xaxis=dict(range=[0, thr_queue.maxlen]))
     fig_t.update_layout(xaxis_title=f'Last {thr_queue.maxlen} measurements', yaxis_title='Throughput (% of the baseline)', coloraxis_colorbar=dict(title='Throughput'))
 
-    return fig_t, fig_b, fig_d
+    df = pd.DataFrame(np.vstack([np.ones(n_antennas), np.arange(0, 360, 360/n_antennas)]).T, columns=['r', 't'], index=None)
+    colors = []
+    for i in range(n_antennas):
+        if i == beam_true:
+            colors.append('red')
+        elif i == beam_pred:
+            colors.append('blue')
+        else:
+            colors.append('grey')
+    fig_o = px.bar_polar(df, r='r', theta='t', color=colors)
+    fig_o.update_layout(template='none', legend_title_text='Beam')
+    
+    return fig_t, fig_b, fig_d, fig_o
