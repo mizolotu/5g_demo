@@ -1,0 +1,47 @@
+Model: "model"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ input_1 (InputLayer)        [(None, 16, 32, 2)]       0         
+                                                                 
+ permute (Permute)           (None, 2, 32, 16)         0         
+                                                                 
+ tf.math.subtract_1 (TFOpLam  (None, 2, 32, 16)        0         
+ bda)                                                            
+                                                                 
+ tf.math.truediv_1 (TFOpLamb  (None, 2, 32, 16)        0         
+ da)                                                             
+                                                                 
+ flatten (Flatten)           (None, 1024)              0         
+                                                                 
+ dense (Dense)               (None, 2048)              2099200   
+                                                                 
+ dropout (Dropout)           (None, 2048)              0         
+                                                                 
+ dense_1 (Dense)             (None, 2048)              4196352   
+                                                                 
+ dropout_1 (Dropout)         (None, 2048)              0         
+                                                                 
+ dense_2 (Dense)             (None, 2048)              4196352   
+                                                                 
+ dropout_2 (Dropout)         (None, 2048)              0         
+                                                                 
+ dense_3 (Dense)             (None, 2048)              4196352   
+                                                                 
+ dropout_3 (Dropout)         (None, 2048)              0         
+                                                                 
+ dense_4 (Dense)             (None, 2048)              4196352   
+                                                                 
+ dropout_4 (Dropout)         (None, 2048)              0         
+                                                                 
+ flatten_1 (Flatten)         (None, 2048)              0         
+                                                                 
+ dense_5 (Dense)             (None, 64)                131136    
+                                                                 
+ reshape (Reshape)           (None, 64)                0         
+                                                                 
+=================================================================
+Total params: 19,015,744
+Trainable params: 19,015,744
+Non-trainable params: 0
+_________________________________________________________________
