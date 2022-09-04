@@ -212,16 +212,20 @@ def update(n_intervals, attack, eps):
     fig_t.update_layout(xaxis=dict(range=[0, thr_queue.maxlen]))
     fig_t.update_layout(xaxis_title=f'Last {thr_queue.maxlen} measurements', yaxis_title='Throughput (% of the baseline)', coloraxis_colorbar=dict(title='Throughput'))
 
-    df = pd.DataFrame(np.vstack([np.ones(n_antennas), np.arange(0, 360, 360/n_antennas)]).T, columns=['r', 't'], index=None)
-    colors = []
+    ids = []
     for i in range(n_antennas):
         if i == beam_true:
-            colors.append('red')
+            ids.append('Real')
         elif i == beam_pred:
-            colors.append('blue')
+            ids.append('Predicted')
         else:
-            colors.append('grey')
-    fig_o = px.bar_polar(df, r='r', theta='t', color=colors)
+            ids.append('Other')
+    df = pd.DataFrame(np.vstack([np.ones(n_antennas), np.arange(0, 360, 360/n_antennas), ids]).T, columns=['r', 'theta', 'id'], index=None)
+    fig_o = px.bar_polar(df, r='r', theta='theta', color=ids)
+    if beam_pred == beam_true:
+        names = {'Real': 'Real / predicted', 'Other': 'Other'}
+        for i in range(len(fig_o.data)):
+            fig_o.data[i].name = names[fig_o.data[i].name]
     fig_o.update_layout(template='none', legend_title_text='Beam')
-    
+
     return fig_t, fig_b, fig_d, fig_o
