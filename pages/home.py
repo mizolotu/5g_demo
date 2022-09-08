@@ -89,10 +89,11 @@ layout = html.Div(className='full', children=[
                     dcc.Markdown(
                         '''                         
                         The study attempts to reduce the beam sweep time by measuring RSSs from only a subset of all available beams and 
-                        mapping them to the best selection from the entire set of beams. An adversary may search for a perturbation that causes any misclassification at 
-                        the receiver’s classifier. In case the beam selected by the classifier is different from the best one, the network throughput may be reduced for 
+                        mapping them to the best selection from the entire set of beams with the help of a deep neural network (DNN). 
+                        An adversary may search for a perturbation that causes any misclassification at the receiver’s classifier. 
+                        In case the beam selected by the classifier is different from the best one, the network throughput may be reduced for 
                         the user under attack. The attack resembles radio jamming, i.e. an adversary uses a fake base station to emit a radio signal on top of existing 
-                        transmissions over the air to negatively affect the model output, i.e. the antenna beam selected.
+                        transmissions.
                         '''
                     ),
 
