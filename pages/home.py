@@ -37,10 +37,11 @@ layout = html.Div(className='full', children=[
 
         dbc.Col(align='center', style={'height': '100%'}, width={"size": 5}, children=[
 
-            html.Img(
-                src='assets/pig.png', style={'height': '100%'}
 
-            )
+            html.Img(
+                src='assets/pig.png', style={'height': '120%'}
+            ),
+            html.P('A picture of a pig is misclassified due to the added perturbarion.')
 
         ])
 
@@ -69,7 +70,7 @@ layout = html.Div(className='full', children=[
                         In the radio access network (RAN) domain, due to the nature of wireless medium, AI/ML based frameworks deployed 
                         may be susceptible to adversaries that manipulate the inputs to the models during the inference stage over the air. 
                         Unless there is a serious flaw in the system, the adversary is not able to manipulate the input data to the target model directly, 
-                        however, it can only add its own transmissions on top of existing transmissions over the air to change the input data indirectly.
+                        however, it can only add its own transmissions on top of already existing ones over the air to change the input data indirectly.
                         A deep learning solution for fast and accurate initial access (IA) in 5G mmWave networks is proposed by [Cousik et al](https://arxiv.org/abs/2101.01847).
                         The IA time consists of two components: time for beam sweeping, i.e. measuring the received signal strengths (RSSs) for different beams, and time for beam prediction, 
                         i.e. identifying the beam for a given transmitter-receiver pair to communicate with. Since the beam sweep time dominates the overall IA time, it is essential to 
@@ -119,7 +120,7 @@ layout = html.Div(className='full', children=[
 
             dcc.Markdown(
                 '''
-                We tested the attack using Outdoor scenario O1 from [DeepMIMO](https://deepmimo.net/) simulator. One of the base stations is selected as the serving 
+                We tested the attack using outdoor scenario O1 from [DeepMIMO](https://deepmimo.net/) simulator. One of the base stations is selected as the serving 
                 base station. UEs are located in rows 700 - 1300, frequency is 28 GHz, BS antenna shape is (1, 64, 1), UE antenna shape is (1, 1, 1), subset of 16 (out of 64) 
                 channels is used as the input. A fully-connected neural network consisting of 5 layers is used, each hidden layer in the network selected consists 
                 of 2048 neurons. Size of the output layer is 64 which corresponds to the number of antennas at the BS, the input layer has shape (2, 16, 32), i.e.
@@ -136,17 +137,19 @@ layout = html.Div(className='full', children=[
 
         dbc.Col(align='center', style={'height': '100%'}, width={"size": 3}, children=[
 
-            html.Img(
-                src='assets/scenario_bird.png', style={'height': '100%'}
-            )
+            html.Img(src='assets/scenario_bird.png', style={'height': '110%'}),
+
+            html.P('Simulation scenario map.')
 
         ]),
 
         dbc.Col(align='center', style={'height': '100%'}, width={"size": 3}, children=[
 
-            html.Img(src='assets/input_r.png', style={'height': '100%'}),
-            html.Img(src='assets/input_i.png', style={'height': '100%'}),
-            html.Img(src='assets/output.png', style={'height': '100%'}),
+            html.Img(src='assets/input_r.png', style={'height': '110%'}),
+            html.Img(src='assets/input_i.png', style={'height': '110%'}),
+            html.Img(src='assets/output.png', style={'height': '110%'}),
+
+            html.P('Input and output of the target model.')
 
         ]),
 
